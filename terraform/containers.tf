@@ -57,7 +57,7 @@ resource "proxmox_virtual_environment_container" "ct" {
   description = each.value.description
   tags        = ["terraform", each.key]
 
-  unprivileged = true
+  unprivileged  = true
   start_on_boot = true
   started       = true
 
