@@ -1,0 +1,2 @@
+- CT103:
+    socket: /var/run/docker.sock

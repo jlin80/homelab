@@ -1,0 +1,76 @@
+# Tokens and passwords loaded from environment — see .env.example
+- Infraestructura:
+    - Proxmox Nodo 1:
+        icon: proxmox.png
+        href: https://192.168.1.10:8006
+        description: t610 #1 — servicios
+        ping: 192.168.1.10
+        widget:
+          type: proxmox
+          url: https://192.168.1.10:8006
+          username: api@pam!homepage
+          password: "{{HOMEPAGE_VAR_PROXMOX_TOKEN}}"
+          node: pve
+          hideErrors: true
+
+    - Proxmox Nodo 2:
+        icon: proxmox.png
+        href: https://192.168.1.11:8006
+        description: t610 #2 — storage
+        ping: 192.168.1.11
+        widget:
+          type: proxmox
+          url: https://192.168.1.11:8006
+          username: api@pam!homepage
+          password: "{{HOMEPAGE_VAR_PROXMOX_TOKEN}}"
+          node: pve2
+          hideErrors: true
+
+    - Router:
+        icon: mdi-router-network
+        href: http://192.168.1.1
+        ping: 192.168.1.1
+
+- Servicios:
+    - Pi-hole:
+        icon: pi-hole.png
+        href: http://192.168.1.20
+        description: DNS / DHCP
+        widget:
+          type: pihole
+          url: http://192.168.1.20
+          version: 6
+          password: "{{HOMEPAGE_VAR_PIHOLE_PASSWORD}}"
+
+    - n8n:
+        icon: n8n.png
+        href: http://192.168.1.23:5678
+        description: Workflow automation
+        ping: 192.168.1.23
+
+    - Nextcloud:
+        icon: nextcloud.png
+        href: http://192.168.1.41:8080
+        description: File sync — multi-user
+        widget:
+          type: nextcloud
+          url: http://192.168.1.41:8080
+          username: admin
+          password: "{{HOMEPAGE_VAR_NEXTCLOUD_TOKEN}}"
+
+- Monitoreo:
+    - Grafana:
+        icon: grafana.png
+        href: http://192.168.1.30:3000
+        description: Prometheus dashboards
+        widget:
+          type: grafana
+          url: http://192.168.1.30:3000
+          username: admin
+          password: "{{HOMEPAGE_VAR_GRAFANA_PASSWORD}}"
+
+    - Prometheus:
+        icon: prometheus.png
+        href: http://192.168.1.30:9090
+        description: Metrics scraping
+        ping: 192.168.1.30

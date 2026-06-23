@@ -1,0 +1,19 @@
+title: Homelab
+theme: dark
+color: slate
+headerStyle: clean
+language: es
+
+layout:
+  Infraestructura:
+    icon: mdi-server-network
+    style: row
+    columns: 2
+  Servicios:
+    icon: mdi-apps
+    style: row
+    columns: 3
+  Monitoreo:
+    icon: mdi-chart-bar
+    style: row
+    columns: 3
