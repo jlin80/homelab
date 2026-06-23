@@ -1,0 +1,81 @@
+# Monitoring stack — CT103 (192.168.1.30)
+# Secrets via .env file (see .env.example) — never committed
+
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.retention.time=15d'
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD}
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    restart: unless-stopped
+    pid: host
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--path.rootfs=/rootfs'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    ports:
+      - "9100:9100"
+
+  pihole-exporter:
+    image: ekofr/pihole-exporter:latest
+    container_name: pihole-exporter
+    restart: unless-stopped
+    environment:
+      PIHOLE_HOSTNAME: ${PIHOLE_HOST}
+      PIHOLE_PASSWORD: ${PIHOLE_PASSWORD}
+    ports:
+      - "9617:9617"
+
+  blackbox-exporter:
+    image: prom/blackbox-exporter:latest
+    container_name: blackbox-exporter
+    restart: unless-stopped
+    ports:
+      - "9115:9115"
+    volumes:
+      - ./blackbox.yml:/etc/blackbox_exporter/config.yml
+
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    restart: unless-stopped
+    ports:
+      - "3005:3000"
+    volumes:
+      - ./homepage:/app/config
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      PUID: 1000
+      PGID: 996
+      HOMEPAGE_ALLOWED_HOSTS: ${HOMEPAGE_HOST}
+
+volumes:
+  prometheus_data:
+  grafana_data:

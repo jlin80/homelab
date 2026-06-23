@@ -21,6 +21,10 @@ terraform.rc
 
 # Lock file is intentionally committed (.terraform.lock.hcl)
 
+# --- Docker / monitoring ---
+# Real secrets for the monitoring stack (keep the .env.example committed)
+monitoring/.env
+
 # --- Editor / OS ---
 .vscode/
 .idea/
