@@ -1,5 +1,10 @@
 # Homelab — Self-Hosted Infrastructure as Code
 
+![Terraform](https://img.shields.io/badge/Terraform-1.6+-7B42BC?logo=terraform)
+![Proxmox](https://img.shields.io/badge/Proxmox-VE_9-E57000?logo=proxmox)
+![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker)
+![CI](https://github.com/jlin80/homelab/actions/workflows/terraform.yml/badge.svg)
+
 A 2-node bare-metal **Proxmox VE 9** cluster running self-hosted services in
 unprivileged LXC containers, provisioned declaratively with **Terraform**.
 
@@ -44,6 +49,28 @@ NFS backup datastore on node 2 is available cluster-wide.
 - **Networking:** Pi-hole DNS/DHCP, Tailscale for secure remote access
 - **Containers:** Docker / Docker Compose (Nextcloud, and the monitoring stack)
 - **Observability:** Prometheus + Grafana + Homepage dashboard
+
+## Monitoring stack
+
+CT103 runs a Docker Compose observability stack, defined under
+[`monitoring/`](monitoring/):
+
+- [`docker-compose.yml`](monitoring/docker-compose.yml) — Prometheus, Grafana,
+  node-exporter, pihole-exporter, blackbox-exporter and the Homepage dashboard.
+- [`prometheus.yml`](monitoring/prometheus.yml) — scrape config; Blackbox probes
+  HTTP uptime on Pi-hole, n8n and both Proxmox nodes.
+- [`blackbox.yml`](monitoring/blackbox.yml) — Blackbox Exporter `http_2xx` module.
+- [`homepage/`](monitoring/homepage/) — Homepage dashboard config (services,
+  widgets, layout).
+
+Secrets are injected via a git-ignored `.env` / `HOMEPAGE_VAR_*` variables;
+[`monitoring/.env.example`](monitoring/.env.example) is committed as a template.
+
+```bash
+cd monitoring
+cp .env.example .env        # fill in Grafana / Pi-hole passwords
+docker compose up -d
+```
 
 ## Usage
 
