@@ -1,0 +1,29 @@
+# --- Terraform ---
+# Local .terraform directories
+**/.terraform/*
+
+# State files (may contain secrets) — never commit
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+crash.log
+crash.*.log
+
+# Variable files with real secrets (keep the .example committed)
+*.tfvars
+*.tfvars.json
+!*.tfvars.example
+
+# CLI configuration / credentials
+.terraformrc
+terraform.rc
+
+# Lock file is intentionally committed (.terraform.lock.hcl)
+
+# --- Editor / OS ---
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db

@@ -1,0 +1,17 @@
+# Copy this file to terraform.tfvars and fill in your own values.
+# terraform.tfvars is git-ignored so secrets never reach the repository.
+
+# Proxmox API token: create one in the PVE UI under
+# Datacenter -> Permissions -> API Tokens (e.g. terraform@pve!iac).
+proxmox_api_token = "terraform@pve!iac=00000000-0000-0000-0000-000000000000"
+
+# Initial root password for newly created containers.
+ct_password = "change-me"
+
+# Public keys injected for key-based root SSH into the containers.
+ssh_public_keys = [
+  "ssh-ed25519 AAAA... you@example.com",
+]
+
+# Override only if your endpoint differs from the default in variables.tf.
+# proxmox_endpoint = "https://192.168.1.10:8006/"
