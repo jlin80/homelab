@@ -8,12 +8,13 @@ on:
 jobs:
   deploy:
     runs-on: [self-hosted, homelab]
-    env:
-      PATH: /usr/local/bin:/usr/bin:/bin
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Agregar /usr/local/bin al PATH
+        run: echo "/usr/local/bin" >> $GITHUB_PATH
 
       - name: Verificar Docker
         run: docker --version
