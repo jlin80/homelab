@@ -13,9 +13,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Agregar /usr/local/bin al PATH
-        run: echo "/usr/local/bin" >> $GITHUB_PATH
-
       - name: Verificar Docker
         run: docker --version
 
@@ -37,15 +34,16 @@ jobs:
           mkdir -p ~/.kube
           echo "${{ secrets.KUBECONFIG_K3S }}" > ~/.kube/config
           chmod 600 ~/.kube/config
+          /usr/local/bin/kubectl version --client
 
       - name: Verificar conexion k3s
-        run: kubectl get nodes
+        run: /usr/local/bin/kubectl get nodes
 
       - name: Desplegar manifiestos en k3s
-        run: kubectl apply -f k8s/ -n portfolio
+        run: /usr/local/bin/kubectl apply -f k8s/ -n portfolio
 
       - name: Verificar pods en k3s
-        run: kubectl get pods -n portfolio
+        run: /usr/local/bin/kubectl get pods -n portfolio
 
       - name: Contenedores Docker activos
         run: docker ps
