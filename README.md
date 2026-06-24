@@ -48,20 +48,27 @@ NFS backup datastore on node 2 is available cluster-wide.
 ### Homepage dashboard
 Live status of both Proxmox nodes, Pi-hole, n8n, Nextcloud, Grafana and Prometheus.
 
-![Homepage dashboard with live widgets for every service](docs/homepage.png)
+![Homepage dashboard](docs/homepage.png)
 
 ### Grafana — Blackbox Exporter
 HTTP uptime and probe latency for Pi-hole, n8n and both Proxmox nodes.
 
-![Grafana Blackbox Exporter dashboard showing per-target HTTP probe status](docs/grafana.png)
+![Grafana Blackbox Exporter](docs/grafana-blackbox.png)
 
 ### Grafana — Kubernetes (kube-state-metrics)
-Pod state, deployments and cluster metrics scraped from k3s via Prometheus.
+Pod state and resource usage scraped from k3s via Prometheus.
+
+![Grafana Kubernetes dashboard](docs/grafana-k8s.png)
+
+### Grafana — Prometheus Explore
+`kube_pod_info` showing all pods in the homelab-k3s cluster across namespaces.
+
+![Grafana Prometheus Explore](docs/grafana-explore.png)
 
 ### Proxmox cluster
 Two-node cluster (`pve` + `pve2`) with LXC containers and cluster storage.
 
-![Proxmox Datacenter view of the two-node cluster and its containers](docs/proxmox-cluster.png)
+![Proxmox Datacenter](docs/proxmox-cluster.png)
 
 ## Services
 
