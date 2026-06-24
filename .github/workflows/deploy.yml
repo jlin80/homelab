@@ -10,17 +10,17 @@ jobs:
     runs-on: [self-hosted, homelab]
 
     steps:
-      - name: Checkout código
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Verificar Docker
         run: docker --version
 
-      - name: Pull imágenes actualizadas
+      - name: Pull imagenes
         run: docker compose -f /root/monitoring/docker-compose.yml pull
 
       - name: Desplegar stack
         run: docker compose -f /root/monitoring/docker-compose.yml up -d --remove-orphans
 
-      - name: Verificar contenedores activos
-        run: docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+      - name: Contenedores activos
+        run: docker ps
