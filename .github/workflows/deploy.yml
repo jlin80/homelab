@@ -18,9 +18,11 @@ jobs:
 
       - name: Pull imágenes actualizadas
         run: docker compose pull
+        working-directory: /root/monitoring
 
       - name: Desplegar stack
         run: docker compose up -d --remove-orphans
+        working-directory: /root/monitoring
 
       - name: Verificar contenedores activos
         run: docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
