@@ -20,7 +20,14 @@ jobs:
         run: docker compose -f /root/monitoring/docker-compose.yml pull
 
       - name: Desplegar stack
-        run: docker compose -f /root/monitoring/docker-compose.yml up -d --remove-orphans
+        run: |
+          docker compose -f /root/monitoring/docker-compose.yml up -d --remove-orphans \
+            prometheus \
+            grafana \
+            blackbox-exporter \
+            pihole-exporter \
+            homepage \
+            node-exporter
 
       - name: Contenedores activos
         run: docker ps
