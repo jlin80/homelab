@@ -32,6 +32,23 @@ by a single `terraform apply`.
 Both nodes are joined in a single Proxmox cluster (`homelab-cluster`), so the
 NFS backup datastore on node 2 is available cluster-wide.
 
+## Screenshots
+
+### Homepage dashboard
+Live status of both Proxmox nodes, Pi-hole, n8n, Nextcloud, Grafana and Prometheus.
+
+![Homepage dashboard with live widgets for every service](docs/homepage.png)
+
+### Grafana — Blackbox Exporter
+HTTP uptime and probe latency for Pi-hole, n8n and both Proxmox nodes.
+
+![Grafana Blackbox Exporter dashboard showing per-target HTTP probe status](docs/grafana.png)
+
+### Proxmox cluster
+Two-node cluster (`pve` + `pve2`) with the four LXC containers and cluster storage.
+
+![Proxmox Datacenter view of the two-node cluster and its containers](docs/proxmox-cluster.png)
+
 ## Services
 
 | CT  | Service   | Node | IP           | Purpose                                              |
