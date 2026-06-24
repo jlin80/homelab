@@ -70,6 +70,11 @@ Two-node cluster (`pve` + `pve2`) with LXC containers and cluster storage.
 
 ![Proxmox Datacenter](docs/proxmox-cluster.png)
 
+### Grafana — Loki (logs centralizados)
+Docker container logs centralized in Loki, queried from Grafana.
+
+![Grafana Loki logs](docs/grafana-loki.png)
+
 ## Services
 
 | CT  | Service    | Node | IP           | Purpose                                             |
