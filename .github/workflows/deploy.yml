@@ -1,0 +1,26 @@
+name: Homelab Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, homelab]
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Verificar Docker
+        run: docker --version
+
+      - name: Pull imágenes actualizadas
+        run: docker compose pull
+
+      - name: Desplegar stack
+        run: docker compose up -d --remove-orphans
+
+      - name: Verificar contenedores activos
+        run: docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
