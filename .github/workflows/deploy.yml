@@ -13,6 +13,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup kubectl
+        run: |
+          mkdir -p /tmp/runner/bin
+          if [ ! -f /tmp/runner/bin/kubectl ]; then
+            curl -LO "https://dl.k8s.io/release/v1.36.2/bin/linux/amd64/kubectl"
+            chmod +x kubectl
+            mv kubectl /tmp/runner/bin/kubectl
+          fi
+          echo "/tmp/runner/bin" >> $GITHUB_PATH
+
       - name: Verificar Docker
         run: docker --version
 
@@ -34,16 +44,15 @@ jobs:
           mkdir -p ~/.kube
           echo "${{ secrets.KUBECONFIG_K3S }}" > ~/.kube/config
           chmod 600 ~/.kube/config
-          /usr/local/bin/kubectl version --client
 
       - name: Verificar conexion k3s
-        run: /usr/local/bin/kubectl get nodes
+        run: kubectl get nodes
 
       - name: Desplegar manifiestos en k3s
-        run: /usr/local/bin/kubectl apply -f k8s/ -n portfolio
+        run: kubectl apply -f k8s/ -n portfolio
 
       - name: Verificar pods en k3s
-        run: /usr/local/bin/kubectl get pods -n portfolio
+        run: kubectl get pods -n portfolio
 
       - name: Contenedores Docker activos
         run: docker ps
