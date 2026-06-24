@@ -8,6 +8,8 @@ on:
 jobs:
   deploy:
     runs-on: [self-hosted, homelab]
+    env:
+      PATH: /usr/local/bin:/usr/bin:/bin
 
     steps:
       - name: Checkout
